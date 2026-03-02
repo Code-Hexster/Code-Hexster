@@ -1,0 +1,38 @@
+name: Update Streak Stats
+
+on:
+  schedule:
+    # Runs every day at 00:30 UTC (6:00 AM IST)
+    - cron: '30 0 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-streak:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create assets directory
+        run: mkdir -p assets
+
+      - name: Download Streak Stats SVG (Dark)
+        run: |
+          curl -o assets/streak-stats-dark.svg \
+            "https://streak-stats.demolab.com?user=Code-Hexster&theme=tokyonight&hide_border=true&background=0D1117&ring=7C3AED&fire=A855F7&currStreakNum=58A6FF&sideNums=7C3AED&currStreakLabel=A855F7&sideLabels=58A6FF&dates=8B949E&border_radius=12"
+
+      - name: Download Streak Stats SVG (Light)
+        run: |
+          curl -o assets/streak-stats-light.svg \
+            "https://streak-stats.demolab.com?user=Code-Hexster&theme=default&hide_border=true&ring=7C3AED&fire=A855F7&currStreakNum=7C3AED&sideNums=7C3AED&currStreakLabel=A855F7&sideLabels=58A6FF&border_radius=12"
+
+      - name: Commit and Push if Changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add assets/streak-stats-dark.svg assets/streak-stats-light.svg
+          git diff --staged --quiet || git commit -m "chore: update streak stats [$(date +'%Y-%m-%d')]"
+          git push
