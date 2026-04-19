@@ -52,27 +52,6 @@
 
 ---
 
-<!-- 🔥 GitHub Streak Stats -->
-<div align="center">
-
-<br/>
-
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/streak-stats-dark.svg" />
-    <img
-      src="assets/streak-stats-light.svg"
-      alt="GitHub Streak Stats"
-      height="230"
-    />
-  </picture>
-
-<br/>
-
-</div>
-
-
-
-
 <div align="center">
   <img src="https://raw.githubusercontent.com/sindresorhus/sindresorhus/main/under-construction.gif" alt="Under Construction" />
 </div>
